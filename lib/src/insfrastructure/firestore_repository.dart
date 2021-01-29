@@ -51,14 +51,13 @@ class FirestoreRepository<T> {
     if (lastLength != null &&
         lastLength % limit != 0 &&
         collection == (lastCollection ?? '')) return list;
-
     final cF = orderBy != null
         ? db
             .collection(collection)
             .limit(limit)
             .orderBy(orderBy, descending: descendent)
         : db.collection(collection).limit(limit);
-        
+
     final ref = startAfterTheLastDocument && lastDocument != null
         ? await cF.startAfterDocument(lastDocument).get()
         : await cF.get();

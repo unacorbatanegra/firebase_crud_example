@@ -14,30 +14,35 @@ dependencies:
 
   get: ^3.24.0
   cupertino_icons: ^1.0.0
-  firebase_core: any
-  firebase_auth: any
-  firebase_database: any
-  firebase_messaging: any
-  google_sign_in: any
-  cloud_firestore: any
-  firebase_storage: any
+  firebase_core: ^0.7.0
+  firebase_auth: ^0.20.0+1
+  firebase_database: ^6.0.0
+  google_sign_in: ^4.5.9
+  cloud_firestore: ^0.16.0
+  firebase_storage: ^7.0.0
   cached_network_image: 2.2.0+1
-  uuid: any
+  uuid: ^2.2.2
   connectivity: ^2.0.2
   url_launcher: ^5.6.0
   dio: ^3.0.10
   path_provider: any
   intl: ^0.16.1
   flutter_icons: any
-  
+  meta: 
 dev_dependencies:
   mockito: any
   pedantic: ^1.9.0
   effective_dart: ^1.0.0 
-  firebase_auth_mocks: ^0.5.1
+  # firebase_auth_mocks: ^0.5.1
   flutter_test:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
 flutter:
   uses-material-design: true
+  assets:
+      - assets/images/
+  fonts:
+      - family: Lato
+        fonts:
+          - asset: assets/fonts/Lato-Regular.ttf

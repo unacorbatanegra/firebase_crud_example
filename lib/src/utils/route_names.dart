@@ -1,4 +1,4 @@
 abstract class RouteName {
   static const main = '/';
-  static const customer = '/';
+  static const customer = '/customer';
 }

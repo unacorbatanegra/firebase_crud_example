@@ -3,16 +3,16 @@ class Customer {
   final String name;
   final String lastName;
   final String email;
-  final String dni;
-  final double creditLimit;
+  final String userName;
+  final bool creditAvailable;
 
   Customer({
     this.uuid,
     this.name,
     this.lastName,
     this.email,
-    this.dni,
-    this.creditLimit,
+    this.userName,
+    this.creditAvailable = false,
   });
 
   Customer copyWith({
@@ -20,16 +20,16 @@ class Customer {
     String name,
     String lastName,
     String email,
-    String dni,
-    double creditLimit,
+    String userName,
+    bool creditAvailable,
   }) =>
       Customer(
         uuid: uuid ?? this.uuid,
         name: name ?? this.name,
         lastName: lastName ?? this.lastName,
         email: email ?? this.email,
-        dni: dni ?? this.dni,
-        creditLimit: creditLimit ?? this.creditLimit,
+        userName: userName ?? this.userName,
+        creditAvailable: creditAvailable ?? this.creditAvailable,
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,8 +37,8 @@ class Customer {
         'name': name,
         'lastName': lastName,
         'email': email,
-        'dni': dni,
-        'creditLimit': creditLimit,
+        'userName': userName,
+        'creditAvailable': creditAvailable,
       };
 
   factory Customer.fromJson(dynamic json) => Customer(
@@ -46,7 +46,7 @@ class Customer {
         name: json['name'] as String,
         lastName: json['lastName'] as String,
         email: json['email'] as String,
-        dni: json['dni'] as String,
-        creditLimit: double.tryParse(json['creditLimit'] as String),
+        userName: json['userName'] as String,
+        creditAvailable: json['creditAvailable'] as bool ?? false,
       );
 }

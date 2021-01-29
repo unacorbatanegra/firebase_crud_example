@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'palette.dart';
+
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key key,
@@ -56,6 +58,11 @@ class CustomTextField extends StatelessWidget {
           ),
           decoration: InputDecoration(
             border: _border,
+            focusedBorder: _border.copyWith(
+              borderSide: BorderSide(
+                color: Palette.accent,
+              ),
+            ),
             contentPadding: const EdgeInsets.all(18.0),
             hintText: hint,
             hintStyle: const TextStyle(color: Colors.grey),

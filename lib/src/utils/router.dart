@@ -13,7 +13,7 @@ mixin CustomRouter {
     ),
     GetPage(
       name: RouteName.customer,
-      page: () => CustomersPage(),
+      page: () => CustomerPage(),
       binding: CustomerBinding(),
     ),
   ];

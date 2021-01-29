@@ -3,26 +3,40 @@ import 'package:get/get.dart';
 
 import '../../../domain/domains.dart';
 import '../../../models/models.dart';
+import '../../../services/services.dart';
 import '../../../utils/utils.dart';
 
-class CustomersController extends GetxController
-    with StateMixin<List<Customer>> {
-  final AuthDomain authDomain;
+class CustomersController extends GetxController {
   final CustomerDomain customerDomain;
 
   ScrollController scrollController;
+  TextEditingController controller;
   CustomersController({
-    @required this.authDomain,
     @required this.customerDomain,
   });
-  var _list = <Customer>[];
+  final list = <Customer>[].obs;
   var _isCharging = false;
+  final _isLoading = false.obs;
+  final _isSearching = false.obs;
+  final focusNode = FocusNode();
+  final debouncer = Debouncer(milliseconds: 500);
   @override
   void onInit() {
     scrollController ??= ScrollController();
+    controller ??= TextEditingController();
     scrollController?.addListener(onScroll);
     init();
     super.onInit();
+  }
+
+  void onTextSearchChanged(String value) async {
+    debouncer.run(
+      () => filter(value),
+    );
+  }
+
+  void filter(String value) {
+    print(value);
   }
 
   void onScroll() async {
@@ -30,25 +44,24 @@ class CustomersController extends GetxController
     final currentScroll = scrollController.position.pixels;
     if (maxScroll - currentScroll <= Get.height * .20 && !_isCharging) {
       _isCharging = true;
-      _list.addAll(
+      list.addAll(
           await customerDomain.getList(startAfterTheLastDocument: true));
-      change(_list, status: RxStatus.success());
       _isCharging = false;
     }
   }
 
+  void focusListener() {
+    _isSearching.value = focusNode.hasFocus;
+    if (!focusNode.hasFocus) {
+      controller.text = '';
+    }
+  }
+
   void init() async {
-    change(null, status: RxStatus.loading());
-    try {
-      _list = await customerDomain.getList();
-    } on Exception catch (e) {
-      change(null, status: RxStatus.error(e.toString()));
-    }
-    if (_list.isNotEmpty) {
-      change(_list, status: RxStatus.success());
-    } else {
-      change(null, status: RxStatus.empty());
-    }
+    focusNode.addListener(focusListener);
+    _isLoading(true);
+    list.addAll(await customerDomain.getList());
+    _isLoading(false);
   }
 
   void onAdd() async {
@@ -61,17 +74,28 @@ class CustomersController extends GetxController
   void onTap(int index) async {
     final result = await Get.toNamed(
       RouteName.customer,
-      arguments: _list[index],
+      arguments: list[index],
     ) as bool;
+    print(result);
     if (result ?? false) init();
   }
 
-  void logOut() => authDomain.signOut();
+  bool changeSearching() {
+    _isSearching.value = !isSearching;
+    focusNode.requestFocus();
+    return _isSearching.value;
+  }
+
+  bool get isLoading => _isLoading.value;
+  bool get isSearching => _isSearching.value;
 
   @override
   void onClose() {
     scrollController?.removeListener(onScroll);
+    focusNode?.removeListener(focusListener);
     scrollController?.dispose();
+    controller?.dispose();
+    focusNode?.dispose();
     super.onClose();
   }
 }

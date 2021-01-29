@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,39 +10,76 @@ class CustomerPage extends GetView<CustomerController> {
   @override
   Widget build(BuildContext context) {
     const gap18 = SizedBox(height: 18.0);
-    return Obx(
-      () => Scaffold(
-        appBar: AppBar(
-          title: const Text('Customer'),
-          actions: [
-            Visibility(
-              child: IconButton(
-                icon: const Icon(Icons.delete_forever),
-                onPressed: controller.delete,
-              ),
-            )
-          ],
-        ),
-        bottomNavigationBar: CustomButton(
-          onPressed: controller.accept,
-          label: 'Save changes',
-        ),
-        body: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                gap18,
-                CustomTextField(
-                  controller: controller.nameController,
-                  hint: 'last name',
-                  label: 'last name',
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Customer'),
+        actions: [
+          Obx(
+            () => controller.isEditing
+                ? IconButton(
+                    icon: const Icon(Icons.delete_forever),
+                    onPressed: controller.delete,
+                  )
+                : const SizedBox.shrink(),
+          )
+        ],
+      ),
+      bottomNavigationBar: CustomButton(
+        onPressed: controller.accept,
+        label: 'Save changes',
+      ),
+      body: Obx(
+        () => controller.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Container(
+                margin: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      gap18,
+                      CustomTextField(
+                        controller: controller.nameController,
+                        label: 'Name',
+                        hint: 'Nicolas...',
+                        validator: controller.validator,
+                      ),
+                      gap18,
+                      CustomTextField(
+                        controller: controller.lastNameController,
+                        label: 'Last name',
+                        hint: 'Lopez...',
+                        validator: controller.validator,
+                      ),
+                      gap18,
+                      CustomTextField(
+                        controller: controller.emailController,
+                        label: 'Email',
+                        hint: 'unacorbatanegra@gmail.com...',
+                        validator: controller.validator,
+                      ),
+                      gap18,
+                      CustomTextField(
+                        controller: controller.usernameController,
+                        label: 'username',
+                        hint: '@unacorbatanegra',
+                        validator: controller.validator,
+                      ),
+                      gap18,
+                      ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        onTap: controller.changeCreditAvailable,
+                        title: const Text('Credit available'),
+                        subtitle: const Text(
+                            'Indicate if the customer can buy on credit'),
+                        trailing: Switch(
+                          value: controller.creditAvailable,
+                          onChanged: (_) => controller.changeCreditAvailable(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                gap18,
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }

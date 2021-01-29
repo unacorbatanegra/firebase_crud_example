@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 
+import 'palette.dart';
+
 mixin CustomTheme {
-  static const _primary = Color(0xFF2A1A5E);
-  static const _accent = Color(0xFFF1A640);
   static final theme = ThemeData(
-    fontFamily: 'Nunito',
-    primaryColor: _primary,
+    fontFamily: 'Lato',
+    primaryColor: Palette.primary,
     backgroundColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
-    primaryColorBrightness: Brightness.dark,
-    accentColor: _accent,
-    accentColorBrightness: Brightness.light,
-    textTheme: TextTheme(
-        // b
-        ),
+    primaryColorBrightness: Brightness.light,
+    accentColor: Palette.accent,
+    accentColorBrightness: Brightness.dark,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: _accent,
+      backgroundColor: Palette.accent,
       foregroundColor: Colors.white,
     ),
+    iconTheme: IconThemeData(
+      color: Palette.accent,
+    ),
     appBarTheme: AppBarTheme(
-      brightness: Brightness.dark,
-      color: _primary,
+      brightness: Brightness.light,
+      color: Colors.white,
       centerTitle: false,
-      actionsIconTheme: const IconThemeData(size: 25, color: Colors.white),
+      actionsIconTheme: const IconThemeData(size: 25, color: Palette.accent),
       textTheme: TextTheme(
         headline6: TextStyle(
-          color: Colors.white,
+          color: Palette.accent,
           fontSize: 25,
-          fontFamily: 'Nunito',
-          fontWeight: FontWeight.normal,
+          fontFamily: 'Lato',
+          fontWeight: FontWeight.bold,
         ),
       ),
     ),
