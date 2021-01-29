@@ -18,13 +18,15 @@ class CustomersController extends GetxController {
   var _isCharging = false;
   final _isLoading = false.obs;
   final _isSearching = false.obs;
-  final focusNode = FocusNode();
+  FocusNode focusNode;
   final debouncer = Debouncer(milliseconds: 500);
   @override
   void onInit() {
     scrollController ??= ScrollController();
     controller ??= TextEditingController();
+    focusNode ??= FocusNode();
     scrollController?.addListener(onScroll);
+    focusNode?.addListener(focusListener);
     init();
     super.onInit();
   }
@@ -35,8 +37,11 @@ class CustomersController extends GetxController {
     );
   }
 
-  void filter(String value) {
-    print(value);
+  void filter(String value) async {
+    customerDomain.clearPagination();
+    _isLoading(true);
+    list.assignAll(await customerDomain.getListaQuery(name: value));
+    _isLoading(false);
   }
 
   void onScroll() async {
@@ -45,7 +50,7 @@ class CustomersController extends GetxController {
     if (maxScroll - currentScroll <= Get.height * .20 && !_isCharging) {
       _isCharging = true;
       list.addAll(
-          await customerDomain.getList(startAfterTheLastDocument: true));
+          await customerDomain.getListaQuery(startAfterTheLastDocument: true));
       _isCharging = false;
     }
   }
@@ -54,13 +59,14 @@ class CustomersController extends GetxController {
     _isSearching.value = focusNode.hasFocus;
     if (!focusNode.hasFocus) {
       controller.text = '';
+      init();
     }
   }
 
   void init() async {
-    focusNode.addListener(focusListener);
     _isLoading(true);
-    list.addAll(await customerDomain.getList());
+    customerDomain.clearPagination();
+    list.assignAll(await customerDomain.getListaQuery());
     _isLoading(false);
   }
 

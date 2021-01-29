@@ -1,24 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../domain.dart';
 
 class UserDomain extends Domain<User> {
-  DocumentSnapshot lastDocument;
-  int lastLength;
-
-  @override
-  Future<List<User>> getList({
-    int limit = 20,
-    bool startAfterTheLastDocument = false,
-  }) =>
-      repository.getList(
-        (_) => User.fromJson(_),
-        Collections.users,
-        limit: limit,
-        startAfterTheLastDocument: startAfterTheLastDocument,
-        orderBy: 'user',
-      );
-
   Future<User> get(String key) async {
     final user = await repository.get(
       (_) => User.fromJson(_),
@@ -43,7 +25,7 @@ class UserDomain extends Domain<User> {
     );
   }
 
-  Future<void> updateUnit(
+  Future<void> update(
     String uid,
     Map<String, dynamic> data,
   ) =>
@@ -52,11 +34,4 @@ class UserDomain extends Domain<User> {
         collection: Collections.users,
         uuid: uid,
       );
-
-  @override
-  void clearPagination() {
-    lastDocument = null;
-    lastLength = null;
-    super.clearPagination();
-  }
 }

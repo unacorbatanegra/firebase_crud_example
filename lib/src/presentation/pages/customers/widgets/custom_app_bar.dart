@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../../../widgets/widgets.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSize {
+
   final TextEditingController controller;
-
   final VoidCallback changeSearching;
-
   final bool isSearching;
   final FocusNode focusNode;
   final ValueChanged<String> onChanged;
+  
   const CustomAppBar({
     Key key,
     @required this.changeSearching,
@@ -59,5 +59,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
   Widget get child => throw UnimplementedError();
 
   @override
-  Size get preferredSize => const Size.fromHeight(60.0);
+  Size get preferredSize => const Size.fromHeight(56.0);
 }

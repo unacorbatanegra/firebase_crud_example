@@ -17,9 +17,7 @@ final AlertDialogCustom = AlertDialog(
     children: <Widget>[
       const CircularProgressIndicator(),
       const SizedBox(width: 20.0),
-      const Text(
-        'Proccesing',
-      )
+      const Text('Proccesing')
     ],
   ),
 );

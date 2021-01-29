@@ -16,11 +16,6 @@ abstract class Domain<T> {
 
   String get currentUserUid => repository.currentUser;
 
-  Future<List<T>> getList({
-    int limit = 20,
-    bool startAfterTheLastDocument = false,
-  });
-
   @mustCallSuper
   void clearPagination() => repository.clearPagination();
 }

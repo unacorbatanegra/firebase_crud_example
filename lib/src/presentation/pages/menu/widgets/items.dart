@@ -6,7 +6,7 @@ import '../../pages.dart';
 mixin Items {
   static final pages = [
     CustomersPage(),
-    Container(),
+    SettingsPage(),
   ];
 
   static const buttons = [

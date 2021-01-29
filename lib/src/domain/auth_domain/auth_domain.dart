@@ -6,8 +6,6 @@ import '../domain.dart';
 import '../domains.dart';
 
 class AuthDomain extends Domain<User> {
-  
-
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   GoogleSignIn googleSignIn = GoogleSignIn.standard();
 
@@ -50,11 +48,5 @@ class AuthDomain extends Domain<User> {
         googleSignIn.signOut(),
       ],
     );
-  }
-
-  @override
-  Future<List<User>> getList(
-      {int limit = 20, bool startAfterTheLastDocument = false}) {
-    throw UnimplementedError();
   }
 }

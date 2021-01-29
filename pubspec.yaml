@@ -29,6 +29,7 @@ dependencies:
   intl: ^0.16.1
   flutter_icons: any
   meta: 
+  flutter_svg: any
 dev_dependencies:
   mockito: any
   pedantic: ^1.9.0

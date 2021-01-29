@@ -39,6 +39,7 @@ class Customer {
         'email': email,
         'userName': userName,
         'creditAvailable': creditAvailable,
+        'searchName': '${name.toLowerCase()} ${lastName.toLowerCase()}',
       };
 
   factory Customer.fromJson(dynamic json) => Customer(
