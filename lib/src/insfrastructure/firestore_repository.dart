@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
 typedef FromJson<T> = T Function(dynamic json);
@@ -11,7 +7,7 @@ typedef FromJson<T> = T Function(dynamic json);
 class FirestoreRepository<T> {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
-  final _storage = FirebaseStorage.instance.ref();
+  
   final _auth = FirebaseAuth.instance;
 
   DocumentSnapshot lastDocument;
@@ -92,29 +88,6 @@ class FirestoreRepository<T> {
     @required String collection,
   }) =>
       db.collection(collection).doc(uuid).delete();
-
-  Future<String> uploadFile(String path, File file) async {
-    final result = _storage.child(path).putFile(file);
-    final snapshot = await result.whenComplete(
-      () => null,
-    );
-    return await snapshot.ref.getDownloadURL();
-  }
-
-  UploadTask uploadFileTask(String path, File file) {
-    print(path);
-    return _storage.child(path).putFile(file);
-  }
-
-  Future<void> deleteStorage(String url) async {
-    try {
-      print(url);
-      final reference = FirebaseStorage.instance.refFromURL(url);
-      await reference.delete();
-    } on PlatformException catch (e) {
-      print('${e.message}+${e.details}+${e.code}');
-    }
-  }
 
   void clearPagination() {
     lastDocument = null;
