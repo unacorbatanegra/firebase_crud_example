@@ -1,0 +1,43 @@
+name: firebase_crud_example
+description: firebase crud example
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  get: ^3.24.0
+  cupertino_icons: ^1.0.0
+  firebase_core: any
+  firebase_auth: any
+  firebase_database: any
+  firebase_messaging: any
+  google_sign_in: any
+  cloud_firestore: any
+  firebase_storage: any
+  cached_network_image: 2.2.0+1
+  uuid: any
+  connectivity: ^2.0.2
+  url_launcher: ^5.6.0
+  dio: ^3.0.10
+  path_provider: any
+  intl: ^0.16.1
+  flutter_icons: any
+  
+dev_dependencies:
+  mockito: any
+  pedantic: ^1.9.0
+  effective_dart: ^1.0.0 
+  firebase_auth_mocks: ^0.5.1
+  flutter_test:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+flutter:
+  uses-material-design: true
