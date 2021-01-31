@@ -39,7 +39,7 @@ class CustomTextField extends StatelessWidget {
         Text(
           label,
           style: const TextStyle(
-            fontFamily: 'Nunito',
+            fontFamily: 'Lato',
             fontSize: 18.0,
           ),
         ),
@@ -54,7 +54,7 @@ class CustomTextField extends StatelessWidget {
           keyboardType: keyboardType,
           style: const TextStyle(
             color: Colors.black,
-            fontFamily: 'Nunito',
+            fontFamily: 'Lato',
           ),
           decoration: InputDecoration(
             border: _border,

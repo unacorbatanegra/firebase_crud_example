@@ -8,7 +8,7 @@ final AlertDialogCustom = AlertDialog(
     style: Get.textTheme.subtitle1.copyWith(
       fontSize: 20,
       color: Get.theme.accentColor,
-      fontFamily: 'Nunito',
+      fontFamily: 'Lato',
     ),
   ),
   content: Row(
